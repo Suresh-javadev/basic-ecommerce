@@ -8,7 +8,11 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import com.ecom.dto.CreateUserDto;
+import com.ecom.dto.category.CreateCategory;
+import com.ecom.dto.product.CreateProduct;
+import com.ecom.exception.ResourceAlreadyExistException;
 import com.ecom.modal.User;
+import com.ecom.services.product.ProductService;
 import com.ecom.services.user.UserService;
 import com.ecom.types.Roles;
 
@@ -19,6 +23,8 @@ public class InitialDataSetupLoader implements ApplicationListener<ContextRefres
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ProductService productService;
 	
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -29,6 +35,11 @@ public class InitialDataSetupLoader implements ApplicationListener<ContextRefres
 		
 		createUserIfOnExist("Suresh Kumar Admin", "admin", "admin@gmail.com", "admin@123", Roles.ADMIN);
 		createUserIfOnExist("Suresh Kumar User", "user", "user@gmail.com", "user@123", Roles.USER);
+		
+		try {
+			productService.create(new CreateProduct("PS5 Console", "P1", "PS5 is latest gaming console."));
+			productService.createCategory(new CreateCategory("Gaming", "Gaming Category"));
+		}catch(ResourceAlreadyExistException e) {}
 		
 		alreadySetup = true;
 	}

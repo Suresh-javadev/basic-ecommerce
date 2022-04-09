@@ -19,6 +19,9 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.ecom.dto.ErrorDto;
+import com.ecom.exception.ResourceAlreadyExistException;
+import com.ecom.exception.ResourceNotFoundException;
+import com.ecom.exception.UserAlreadyExistException;
 import com.ecom.exception.UserNotFoundException;
 
 @RestControllerAdvice
@@ -67,6 +70,29 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
           return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 
-	}    
+	}   
+    
+    @ExceptionHandler(ResourceNotFoundException.class)
+    private ResponseEntity<ErrorDto> handleResourceNotFoundException(ResourceNotFoundException ex) {
+    	  ErrorDto error = new ErrorDto(HttpStatus.NOT_FOUND, "Resource Not Found", ex.getMessage());
+
+          return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+
+	}
+    
+    @ExceptionHandler(ResourceAlreadyExistException.class)
+    private ResponseEntity<ErrorDto> handleResourceAlreadyExistException(ResourceAlreadyExistException ex) {
+    	  ErrorDto error = new ErrorDto(HttpStatus.CONFLICT, "Resource Conflict", ex.getMessage());
+
+          return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+
+	}
+    
+    @ExceptionHandler(UserAlreadyExistException.class)
+    private ResponseEntity<ErrorDto> handleUserAlreadyExistException(UserAlreadyExistException ex) {
+    	  ErrorDto error = new ErrorDto(HttpStatus.CONFLICT, "User Already Exist", ex.getMessage());
+
+          return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+	}
     
 }

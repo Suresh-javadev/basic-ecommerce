@@ -14,6 +14,15 @@ public class CreateCategory {
 	@ApiModelProperty( dataType = "String", example = "Category Electronics Products")
 	private String description;
 	
+	public CreateCategory() {
+		
+	}
+	
+	public CreateCategory(String name,String description) {
+		this.name =name;
+		this.description =description;
+	}
+	
 	public String getName() {
 		return name;
 	}

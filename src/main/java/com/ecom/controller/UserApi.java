@@ -32,7 +32,7 @@ public interface UserApi {
 	public ResponseEntity<User> user(@ApiParam(required = true,example = "1",type = "Long") Long userId);
 	
 	@ApiOperation(value = "Get list of users", response = Iterable.class)
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Suceess"), @ApiResponse(code = 401, message = "Not authorized!"), @ApiResponse(code = 403, message = "Forbidden!"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Suceess",response = User.class, responseContainer = "List"), @ApiResponse(code = 401, message = "Not authorized!"), @ApiResponse(code = 403, message = "Forbidden!"),
 			@ApiResponse(code = 404, message = "Not found!") })
 	public ResponseEntity<List<User>> users();
 	

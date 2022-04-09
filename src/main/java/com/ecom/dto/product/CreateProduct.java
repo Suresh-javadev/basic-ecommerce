@@ -1,9 +1,7 @@
 package com.ecom.dto.product;
 
-import java.util.List;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -23,9 +21,15 @@ public class CreateProduct {
 	@ApiModelProperty( dataType = "String", example = "Television")
 	private String description;
 	
-	@ApiModelProperty( dataType = "String", example = "[cat1,cat2]")
-	@NotEmpty(message = "category required")
-	private List<ProductCategory> categories;
+	public CreateProduct() {
+		
+	}
+	
+	public CreateProduct(String name,String code,String description) {
+		this.name =name;
+		this.code =code;
+		this.description = description;
+	}
 	
 	public String getName() {
 		return name;
@@ -45,10 +49,5 @@ public class CreateProduct {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public List<ProductCategory> getCategories() {
-		return categories;
-	}
-	public void setCategories(List<ProductCategory> categories) {
-		this.categories = categories;
-	}
+
 }
