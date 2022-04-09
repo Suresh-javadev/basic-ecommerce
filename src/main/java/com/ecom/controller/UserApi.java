@@ -15,7 +15,7 @@ import com.ecom.dto.ErrorDto;
 import com.ecom.dto.UpdateUserDto;
 import com.ecom.modal.User;
 
-@Api
+@Api(value = "User")
 public interface UserApi {
 
 	@ApiResponses(

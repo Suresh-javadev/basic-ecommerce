@@ -44,7 +44,7 @@ public class CreateUserDto {
 	@NotBlank(message = "password is mandatory")
 	private String password;
 	
-	@ApiModelProperty(required = true,dataType = "String",example = "Suresh Kumar")
+	@ApiModelProperty(required = true,dataType = "String",example = "ADMIN")
 	@NotNull
 	@ValidRoles(anyOf = {Roles.ADMIN,Roles.USER})
 	private Roles role;

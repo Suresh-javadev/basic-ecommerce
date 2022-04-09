@@ -1,7 +1,5 @@
 package com.ecom.modal;
-import java.util.Date;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,20 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import com.ecom.types.Roles;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
 @Table(name = "tbl_user")
-public class User {
+public class User extends ModalTimeStamp{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,20 +50,6 @@ public class User {
 	
 	@Column(name="enabled", nullable = false, length = 150,columnDefinition = "boolean default true")
 	private boolean enabled=true;
-
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="Asia/Kolkata")
-	@Basic
-	@Temporal(TemporalType.TIMESTAMP)
-	@CreationTimestamp
-	@Column(name="created_at")
-	private Date createdDate;
-	
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="Asia/Kolkata")
-	@Basic
-	@Temporal(TemporalType.TIMESTAMP)
-	@UpdateTimestamp
-	@Column(name="last_modified_at")
-	private Date lastModifiedDate;
 
 	public Long getId() {
 		return id;
@@ -151,20 +130,5 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public Date getLastModifiedDate() {
-		return lastModifiedDate;
-	}
-
-	public void setLastModifiedDate(Date lastModifiedDate) {
-		this.lastModifiedDate = lastModifiedDate;
-	}	
+	
 }

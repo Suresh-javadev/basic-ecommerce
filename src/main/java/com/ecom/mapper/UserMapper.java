@@ -17,4 +17,6 @@ public interface UserMapper {
 	@Mapping(target = "lastModifiedDate", ignore = true)
 	@Mapping(target = "id", ignore = true)
 	User createUserDtoToUserModal(CreateUserDto createDto);
+	
+	
 }
