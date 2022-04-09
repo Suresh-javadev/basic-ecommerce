@@ -23,8 +23,8 @@ public class BasicEcommerceApplication {
 		SpringApplication.run(BasicEcommerceApplication.class, args);
 	}
 	
-	/* Uncomment for h2 server console view
-	@Bean
+	// Uncomment for h2 server console view
+	/*@Bean
 	org.h2.tools.Server h2Server() {
 	    Server server = new Server();
 	    try {
@@ -35,5 +35,5 @@ public class BasicEcommerceApplication {
 	    }
 	    return server;
 
-	} */
+	}*/
 }

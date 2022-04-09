@@ -6,6 +6,7 @@ Rest api for basic ecommerce actions
 <ul>
 <li>Spring Boot</li>
 <li>Spring Boot Data Jpa</li>
+<li>H2 in memory DB</li>
 <li>Spring Boot Validations</li>
 <li>Swagger</li>
 <li>Mapstruct</li>
@@ -14,6 +15,7 @@ Rest api for basic ecommerce actions
 <li>Central Exception Handler</li>
 <li>Custom Validation Annotation Creations</li>
 <li>Custom Method Security Expressions</li>
+<li>JUnit Rest Api Test Case with Mockito</li>
 </ul>
 <hr>
 <p>Action Available in project <p>
@@ -48,4 +50,8 @@ Rest api for basic ecommerce actions
 <hr>
 <img src="swagger1.png" width="600px" height="350px"/>
 <img src="swagger2.png" width="600px" height="350px"/>
+<hr>
+<p>Results: Test Cases - JUnit Test - MockMvc<p>
+<hr>
+<img src="usercontrollertest.png" width="600px" height="350px"/>
 <hr>

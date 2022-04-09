@@ -39,7 +39,8 @@ public class UserController implements UserApi{
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/create")
 	public ResponseEntity<User> create(@RequestBody @Valid CreateUserDto user) {		
-		return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(user));
+		User created=userService.create(user);
+		return ResponseEntity.status(HttpStatus.CREATED).body(created);
 	}
 
 	@Override

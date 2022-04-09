@@ -44,8 +44,8 @@ public class UserServiceImpl implements UserService{
 		
 		//password encryption
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		
-		return userRepo.save(userMapper.createUserDtoToUserModal(user));
+		User toCreate=userMapper.createUserDtoToUserModal(user);
+		return userRepo.save(toCreate);
 	}
 
 	@Override
