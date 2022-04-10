@@ -1,5 +1,6 @@
 package com.ecom.modal.product;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -27,6 +28,9 @@ public class Product extends ModalTimeStamp{
 	
 	@Column(name="code", nullable = false, unique = true,length = 30)
 	private String code;
+	
+	@Column(name="price",nullable = false,precision = 10,scale = 2)
+	private BigDecimal price;
 	
 	@Column(name="description", length = 1000)
 	private String description;

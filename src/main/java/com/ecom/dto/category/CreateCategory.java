@@ -8,9 +8,10 @@ import io.swagger.annotations.ApiModelProperty;
 public class CreateCategory {
 	
 	@ApiModelProperty(required = true,dataType = "String", example = "Electronics")
-	@NotBlank(message = "name is mandatory")
-	@Size(min=2,max=100)
+	@NotBlank(message = "{category.name.notblank}")
+	@Size(min=2,max=100,message = "{category.name.size}")
 	private String name;
+	
 	@ApiModelProperty( dataType = "String", example = "Category Electronics Products")
 	private String description;
 	

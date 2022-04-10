@@ -1,5 +1,6 @@
 package com.ecom.config;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,15 @@ import com.ecom.modal.User;
 import com.ecom.services.product.ProductService;
 import com.ecom.services.user.UserService;
 import com.ecom.types.Roles;
+/**
+ * <p> Initial Mock Data Insert To DB
+ * <p> Insert Admin and User
+ * <p> Product Insert
+ * <p> Category Insert
+ * @author suresh
+ * @since 1.0
+ * @version 1.0
+ */
 
 @Component
 public class InitialDataSetupLoader implements ApplicationListener<ContextRefreshedEvent> {
@@ -37,7 +47,7 @@ public class InitialDataSetupLoader implements ApplicationListener<ContextRefres
 		createUserIfOnExist("Suresh Kumar User", "user", "user@gmail.com", "user@123", Roles.USER);
 		
 		try {
-			productService.create(new CreateProduct("PS5 Console", "P1", "PS5 is latest gaming console."));
+			productService.create(new CreateProduct("PS5 Console", "P1",BigDecimal.valueOf(50000.00) ,"PS5 is latest gaming console."));
 			productService.createCategory(new CreateCategory("Gaming", "Gaming Category"));
 		}catch(ResourceAlreadyExistException e) {}
 		
