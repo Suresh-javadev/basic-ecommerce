@@ -70,10 +70,11 @@ public class ProductController implements ProductApi {
 	@Override
 	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/product/{productId}")
-	public ResponseEntity<String> delete(Long productId) {
-		
-		return null;
-	}	
+	public ResponseEntity<String> delete(Long productId) {		
+		productService.delete(productId);
+		return ResponseEntity.ok("Deleted Successfully");
+	}
+	
 	@Override
 	@GetMapping("/product/{productId}/categories")
 	public ResponseEntity<List<Category>> productCategory(@PathVariable("productId") Long productId) {
