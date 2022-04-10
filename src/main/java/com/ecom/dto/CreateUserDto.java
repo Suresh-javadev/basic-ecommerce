@@ -3,6 +3,7 @@ package com.ecom.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.ecom.types.Roles;
 import com.ecom.validators.ValidRoles;
@@ -28,25 +29,28 @@ public class CreateUserDto {
 	}
 
 	@ApiModelProperty(required = true,dataType = "String", example = "Suresh Kumar")
-	@NotBlank(message = "name is mandatory")
+	@NotBlank(message = "{user.name.notblank}")
+	@Size(min=4,max=100,message = "{user.name.size}")
 	private String name;
 	
 	@ApiModelProperty(required = true,dataType = "String", example = "sk@gmail.com")
-	@NotBlank(message = "Emaill is mandatory")
-	@Email(regexp = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$")
+	@NotBlank(message = "{user.email.notblank}")
+	@Email(regexp = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$",message = "{user.email.email}")
 	private String email;
 	
 	@ApiModelProperty(required = true,dataType = "String", example = "sk")
-	@NotBlank(message = "username is mandatory")
+	@NotBlank(message = "{user.username.notblank}")
+	@Size(min=4,max=50,message = "{user.username.size}")
 	private String username;
 	
-	@ApiModelProperty(required = true,dataType = "String", example = "abc@123")
-	@NotBlank(message = "password is mandatory")
+	@ApiModelProperty(required = true,dataType = "String", example = "abc@1234")
+	@NotBlank(message = "{user.password.notblank}")
+	@Size(min=8,max=50,message = "{user.password.size}")
 	private String password;
 	
 	@ApiModelProperty(required = true,dataType = "String",example = "ADMIN")
 	@NotNull
-	@ValidRoles(anyOf = {Roles.ADMIN,Roles.USER})
+	@ValidRoles(anyOf = {Roles.ADMIN,Roles.USER},message = "{user.role.validroles}")
 	private Roles role;
 	
 	public String getName() {

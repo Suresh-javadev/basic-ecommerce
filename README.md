@@ -49,7 +49,29 @@
 
 ## Swagger
 
-<p><a href="localhost:18080/swagger-ui.html">localhost:18080/swagger-ui.html</a><p>
+<a href="localhost:18080/swagger-ui.html">localhost:18080/swagger-ui.html</a>
+
+## Api Sample Validation Error(400)
+
+```json
+{
+  "httpStatus": "BAD_REQUEST",
+  "timestamp": "2022-04-10 11:55:06",
+  "message": "Validation Error",
+  "details": "{password=[Passdword must have min 8 char, max 50!], name=[Name must have min 4 char, max 100!], username=[Name must have min 4 char, max 50!]}"
+}
+```
+
+## Api Sample Unauthorized Access Error(403)
+
+```json
+{
+    "httpStatus": "FORBIDDEN",
+    "timestamp": "2022-04-10 12:22:12",
+    "message": "No Access",
+    "details": "Access is denied"
+}
+```
 
 ## User API
 

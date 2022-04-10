@@ -2,18 +2,20 @@ package com.ecom.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import io.swagger.annotations.ApiModelProperty;
 
 public class UpdateUserDto {
 
 	@ApiModelProperty(required = true,dataType = "String", example = "Suresh Kumar")
-	@NotBlank(message = "name is mandatory")
+	@NotBlank(message = "{user.name.notblank}")
+	@Size(min=4,max=100,message = "{user.name.size}")
 	private String name;
 	
 	@ApiModelProperty(required = true,dataType = "String", example = "sk@gmail.com")
-	@NotBlank(message = "Emaill is mandatory")
-	@Email(regexp = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$")
+	@NotBlank(message = "{user.email.notblank}")
+	@Email(regexp = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$",message = "{user.email.email}")
 	private String email;
 
 	public UpdateUserDto() {}

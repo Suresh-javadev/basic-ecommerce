@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -70,6 +71,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     	  ErrorDto error = new ErrorDto(HttpStatus.FORBIDDEN, "No Access", ex.getMessage());
 
           return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
+
+	}
+    
+    @ExceptionHandler(AuthenticationException.class)
+    private ResponseEntity<ErrorDto> handleAuthenticationException(AuthenticationException ex) {
+    	  ErrorDto error = new ErrorDto(HttpStatus.UNAUTHORIZED, "Unauthorized", ex.getMessage());
+
+          return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
 
 	}
     
