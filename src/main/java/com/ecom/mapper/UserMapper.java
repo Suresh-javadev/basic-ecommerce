@@ -1,22 +1,19 @@
 package com.ecom.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 
 import com.ecom.dto.CreateUserDto;
+import com.ecom.dto.UpdateUserDto;
 import com.ecom.modal.User;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
     
-	@Mapping(target = "accountNonExpired", ignore = true)
-	@Mapping(target = "accountNonLocked", ignore = true)
-	@Mapping(target = "credentialsNonExpire", ignore = true)
-	@Mapping(target = "enabled", ignore = true)
-	@Mapping(target = "createdDate", ignore = true)
-	@Mapping(target = "lastModifiedDate", ignore = true)
-	@Mapping(target = "id", ignore = true)
 	User createUserDtoToUserModal(CreateUserDto createDto);
+	
+	void updateEntity(@MappingTarget User entity,UpdateUserDto dto);
 	
 	
 }

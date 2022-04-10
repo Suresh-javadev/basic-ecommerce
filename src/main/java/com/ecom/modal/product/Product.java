@@ -1,6 +1,7 @@
 package com.ecom.modal.product;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -37,7 +38,7 @@ public class Product extends ModalTimeStamp{
 	
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tbl_product_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
-    private Collection<Category> categories;
+    private Collection<Category> categories=new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -77,6 +78,14 @@ public class Product extends ModalTimeStamp{
 
 	public void setCategories(Collection<Category> categories) {
 		this.categories = categories;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
     
 }

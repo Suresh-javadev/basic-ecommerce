@@ -21,7 +21,7 @@ public interface ProductApi {
 
 	@ApiResponses(
 			value = {
-				@ApiResponse(code = 201,message = "Product Created",response = Product.class)
+				@ApiResponse(code = 201,message = "Suceess",response = Product.class)
 				,@ApiResponse(code = 400,message = "Validation Error",response = ErrorDto.class)
 			})
 	@ApiOperation(value = "Create Product")
@@ -29,7 +29,15 @@ public interface ProductApi {
 	
 	@ApiResponses(
 			value = {
-				@ApiResponse(code = 201,message = "Product Created",response = Product.class)
+				@ApiResponse(code = 201,message = "Suceess",response = Product.class)
+				,@ApiResponse(code = 400,message = "Validation Error",response = ErrorDto.class)
+			})
+	@ApiOperation(value = "Update Product")
+	public ResponseEntity<Product> update(Long porductId,CreateProduct product);
+	
+	@ApiResponses(
+			value = {
+				@ApiResponse(code = 201,message = "Suceess",response = Product.class)
 				,@ApiResponse(code = 400,message = "Validation Error",response = ErrorDto.class)
 			})
 	@ApiOperation(value = "Create Category")

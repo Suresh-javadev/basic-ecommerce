@@ -76,8 +76,7 @@ public class UserServiceImpl implements UserService{
 			throw new UserNotFoundException("User not found");
 		
 		User user = userOps.get();
-		user.setName(update.getName());
-		user.setEmail(update.getEmail());
+		userMapper.updateEntity(user, update);
 		
 		return userRepo.save(user);
 	}

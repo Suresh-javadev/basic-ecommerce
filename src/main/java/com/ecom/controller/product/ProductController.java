@@ -24,6 +24,7 @@ import com.ecom.services.product.ProductService;
 
 @RestController
 public class ProductController implements ProductApi {
+	
 	@Autowired
 	private ProductService productService;
 	
@@ -34,6 +35,13 @@ public class ProductController implements ProductApi {
 		return ResponseEntity.status(HttpStatus.CREATED).body(productService.create(product));
 	}
 
+	@Override
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping("/product/{productId}")
+	public ResponseEntity<Product> update(@PathVariable("productId") Long productId,@RequestBody @Valid CreateProduct product) {		
+		return ResponseEntity.status(HttpStatus.OK).body(productService.update(productId,product));
+	}	
+	
 	@Override
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/product/category")
@@ -56,46 +64,7 @@ public class ProductController implements ProductApi {
 	@Override
 	@GetMapping("/product/{productId}")
 	public ResponseEntity<Product> product(@PathVariable("productId") Long productId) {
-
-		return null;
-	}
-
-	@Override
-	@GetMapping("/product/{productId}/categories")
-	public ResponseEntity<List<Category>> productCategory(@PathVariable("productId") Long productId) {
-
-		return null;
-	}
-	
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	@DeleteMapping("/product/{productId}/category/{categoryId}")
-	public ResponseEntity<String> unmapCategory(@PathVariable("productId") Long productId,@PathVariable("categoryId") Long categoryId) {
-
-		return null;
-	}
-	
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	@PutMapping("/product/{productId}/category/{categoryId}")
-	public ResponseEntity<String> mapCategory(@PathVariable("productId") Long productId,@PathVariable("categoryId") Long categoryId) {
-
-		return null;
-	}
-	
-	@Override
-	@GetMapping("/product/category/{categoryId}")
-	public ResponseEntity<Category> category(Long id) {
-
-		return null;
-	}
-	
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	@DeleteMapping("/product/category/{categoryId}")
-	public ResponseEntity<String> deleteCategory(Long id) {
-
-		return null;
+		return ResponseEntity.ok(productService.findById(productId));
 	}
 
 	@Override
@@ -104,6 +73,42 @@ public class ProductController implements ProductApi {
 	public ResponseEntity<String> delete(Long productId) {
 		
 		return null;
+	}	
+	@Override
+	@GetMapping("/product/{productId}/categories")
+	public ResponseEntity<List<Category>> productCategory(@PathVariable("productId") Long productId) {
+		List<Category> list=productService.findProductCategories(productId);
+		return ResponseEntity.ok(list);
+	}
+	
+	@Override
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping("/product/{productId}/category/{categoryId}")
+	public ResponseEntity<String> mapCategory(@PathVariable("productId") Long productId,@PathVariable("categoryId") Long categoryId) {
+		productService.mapCategoryToProduct(productId,categoryId);
+		return ResponseEntity.ok("Mapped Successfully");
+	}
+	
+	@Override
+	@PreAuthorize("hasRole('ADMIN')")
+	@DeleteMapping("/product/{productId}/category/{categoryId}")
+	public ResponseEntity<String> unmapCategory(@PathVariable("productId") Long productId,@PathVariable("categoryId") Long categoryId) {
+		productService.unmapCategoryToProduct(productId,categoryId);
+		return ResponseEntity.ok("Unmapped Successfully");
+	}
+	
+	@Override
+	@GetMapping("/product/category/{categoryId}")
+	public ResponseEntity<Category> category(@PathVariable("categoryId") Long id) {
+		return ResponseEntity.ok(productService.findCategoryById(id));
+	}
+	
+	@Override
+	@PreAuthorize("hasRole('ADMIN')")
+	@DeleteMapping("/product/category/{categoryId}")
+	public ResponseEntity<String> deleteCategory(@PathVariable("categoryId") Long id) {
+		productService.deleteCategory(id);
+		return ResponseEntity.ok("Deleted Successfully");
 	}
 
 }
