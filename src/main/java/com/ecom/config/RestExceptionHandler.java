@@ -6,12 +6,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceException;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -41,11 +44,17 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    private ResponseEntity<ErrorDto> handleEntityNotFound(EntityNotFoundException ex){
-        ErrorDto error = new ErrorDto(HttpStatus.NOT_FOUND, "Entity not found", ex.getMessage());
+    @ExceptionHandler(PersistenceException.class)
+    private ResponseEntity<ErrorDto> handlePersistenceException(PersistenceException ex){
+    	HttpStatus status=HttpStatus.INTERNAL_SERVER_ERROR;
+    	
+    	ErrorDto error=new ErrorDto(status, "Server Error Occur", ex.getMessage());
+        
+        if(ex instanceof EntityNotFoundException) {
+        	error= new ErrorDto(status, "Entity not found", ex.getMessage());
+        }
 
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, status);
     }
     
     @Override
@@ -95,4 +104,36 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
           return new ResponseEntity<>(error, HttpStatus.CONFLICT);
 	}
     
+    @Override
+    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
+    		HttpHeaders headers, HttpStatus status, WebRequest request) {
+    	ErrorDto error = new ErrorDto(status, "Method Not Supported", ex.getMessage());
+
+        return new ResponseEntity<>(error, status);
+    }
+    
+    @Override
+    protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(HttpMediaTypeNotSupportedException ex,
+    		HttpHeaders headers, HttpStatus status, WebRequest request) {
+    	
+    	ErrorDto error = new ErrorDto(status, "Content-Type Not Supported", ex.getMessage());
+
+        return new ResponseEntity<>(error, status);
+    }
+    
+    @ExceptionHandler(NullPointerException.class)
+    private ResponseEntity<ErrorDto> handleNullPointerException(NullPointerException ex) {
+    	  
+    	  ErrorDto error = new ErrorDto(HttpStatus.INTERNAL_SERVER_ERROR, "Server Error", ex.getMessage());
+
+          return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+    
+    @ExceptionHandler(IllegalArgumentException.class)
+    private ResponseEntity<ErrorDto> handleIllegalArgumentException(IllegalArgumentException ex) {
+    	  
+    	  ErrorDto error = new ErrorDto(HttpStatus.BAD_REQUEST, "Argument not Correct", ex.getMessage());
+
+          return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
 }

@@ -44,7 +44,7 @@ class UserControllerTest {
 	private UserService userService;
 
 	/**
-	 * <p> Test for api: "{@code /user/userId}"
+	 * <p> TEST GET For User API: "{@code /user/userId}"
 	 * <p> method GET
 	 * <p> Positive test
 	 * @throws Exception
@@ -62,7 +62,7 @@ class UserControllerTest {
 	}
 	
 	/**
-	 * <p> Test for api: "{@code /user/userId}"
+	 * <p> Test GET For User API: "{@code /user/userId}"
 	 * <p> method GET
 	 * <p> Negative test - User not found by id
 	 * @throws Exception
@@ -81,7 +81,7 @@ class UserControllerTest {
 	}
 	
 	/**
-	 * <p> Test for api: "{@code /user/create}"
+	 * <p> Test Create for User API: "{@code /user}"
 	 * <p> method POST
 	 * <p> Positive test
 	 * @throws Exception
@@ -96,7 +96,7 @@ class UserControllerTest {
 		//mocking userRepo
 		when(userService.create(userDto)).thenReturn(entity);
 		
-		this.mockMvc.perform(post("/user/create")
+		this.mockMvc.perform(post("/user")
 		.contentType(MediaType.APPLICATION_JSON)
 		.content(jsonmapper.writeValueAsString(userDto))
 		.with(httpBasic(ADMIN_USERNSME, ADMIN_PASSWORD)))
@@ -106,7 +106,7 @@ class UserControllerTest {
 	}
 	
 	/**
-	 * <p> Test for api: "{@code /user/create}"
+	 * <p> Test Create For User API: "{@code /user}"
 	 * <p> method POST
 	 * <p> Negative test - Email Not Present
 	 * @throws Exception
@@ -121,7 +121,7 @@ class UserControllerTest {
 		//mocking userRepo
 		when(userService.create(userDto)).thenReturn(entity);
 		
-		this.mockMvc.perform(post("/user/create")
+		this.mockMvc.perform(post("/user")
 		.contentType(MediaType.APPLICATION_JSON)
 		.content(jsonmapper.writeValueAsString(userDto))
 		.with(httpBasic(ADMIN_USERNSME, ADMIN_PASSWORD)))
@@ -132,7 +132,7 @@ class UserControllerTest {
 	
 	
 	/**
-	 * <p> Test return for api: "{@code /user/userId}"
+	 * <p> Test Update for User API: "{@code /user/userId}"
 	 * <p> method DELETE
 	 * <p> Positive test
 	 * @throws Exception
@@ -148,7 +148,7 @@ class UserControllerTest {
 		
 		when(userService.update(userId, update)).thenReturn(userStubAdmin(ADMIN_USERNSME));
 		
-		this.mockMvc.perform(patch("/user/update/"+userId)
+		this.mockMvc.perform(patch("/user/"+userId)
 		.contentType(MediaType.APPLICATION_JSON)
 		.content(jsonmapper.writeValueAsString(update))				
 		.with(httpBasic(ADMIN_USERNSME, ADMIN_PASSWORD)))
@@ -158,7 +158,7 @@ class UserControllerTest {
 	
 	
 	/**delete
-	 * <p> Test return for api: "{@code /user/userId}"
+	 * <p> Test Delete for User API: "{@code /user/userId}"
 	 * <p> method PATCH
 	 * <p> Positive test
 	 * @throws Exception
@@ -167,7 +167,7 @@ class UserControllerTest {
 	void deleteUserWithAdminAuthPositiveTest() throws Exception {
 		when(userService.findUserByUsername(ADMIN_USERNSME)).thenReturn(Optional.of(userStubAdmin(ADMIN_USERNSME)));
 			
-		this.mockMvc.perform(delete("/user/delete/1")
+		this.mockMvc.perform(delete("/user/1")
 		.with(httpBasic(ADMIN_USERNSME, ADMIN_PASSWORD)))
 		.andDo(print()).andExpect(status()
 		.isOk())

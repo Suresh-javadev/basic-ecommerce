@@ -1,6 +1,7 @@
 # basic-ecommerce
-Rest api for basic ecommerce actions
-<hr>
+
+## Rest api for basic ecommerce actions
+
 <p>List of Tech features used for this projects are: <p>
 <hr>
 <ul>
@@ -17,9 +18,10 @@ Rest api for basic ecommerce actions
 <li>Custom Method Security Expressions</li>
 <li>JUnit Rest Api Test Case with Mockito</li>
 </ul>
-<hr>
-<p>Action Available in project <p>
-<hr>
+
+
+## Action Available in project
+
 <ul>
 <li>One can create User(Role{ADMIN or USER})</li>
 <li>Get User</li>
@@ -31,9 +33,9 @@ Rest api for basic ecommerce actions
 <li>Get Product List</li>
 <li>Delete Product</li>
 </ul>
-<hr>
-<p>Default Users<p>
-<hr>
+
+### Default Users
+
 <table style="border: 1px solid;">
 <tr style="border: 1px solid;">
 <td>admin</td>
@@ -44,14 +46,21 @@ Rest api for basic ecommerce actions
 <td>user@123</td>
 </tr>
 </table>
+
+## Swagger
+
+<p><a href="localhost:18080/swagger-ui.html">localhost:18080/swagger-ui.html</a><p>
+
+## User API
+
+<img src="usercontrollerapi.png" width="100%" height="350px"/>
+
+## Product API
 <hr>
-<p>Swagger<p>
-<p>localhost:18080/swagger-ui.html<p>
+<img src="productcontrollerapi.png" width="100%" height="350px"/>
 <hr>
-<img src="swagger1.png" width="600px" height="350px"/>
-<img src="swagger2.png" width="600px" height="350px"/>
-<hr>
-<p>Results: Test Cases - JUnit Test - MockMvc<p>
+
+## Results: Test Cases - JUnit Test - MockMvc
 <hr>
 <img src="usercontrollertest.png" width="600px" height="350px"/>
 <hr>

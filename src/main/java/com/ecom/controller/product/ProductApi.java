@@ -35,43 +35,49 @@ public interface ProductApi {
 	@ApiOperation(value = "Create Category")
 	public ResponseEntity<Category> createCategory(CreateCategory category);
 	
-	@ApiOperation(value = "Get product by id", response = Product.class)
+	@ApiOperation(value = "Get A Product By id", response = Product.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Suceess"), @ApiResponse(code = 401, message = "Not authorized!"), @ApiResponse(code = 403, message = "Forbidden!"),
 			@ApiResponse(code = 404, message = "Not found!") })
 	public ResponseEntity<Product> product(@ApiParam(required = true,example = "1",type = "Long",name = "productId") Long productId);
 	
-	@ApiOperation(value = "Get list of products", response = Iterable.class)
+	@ApiOperation(value = "Get All Products", response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Suceess",response = Product.class, responseContainer = "List"), @ApiResponse(code = 401, message = "Not authorized!"), @ApiResponse(code = 403, message = "Forbidden!"),
 			@ApiResponse(code = 404, message = "Not found!") })
 	public ResponseEntity<List<Product>> products();
 	
-	@ApiOperation(value = "Delete product by id", response = String.class)
+	@ApiOperation(value = "Delete A Product By id", response = String.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Deleted Suceessfully"), @ApiResponse(code = 401, message = "Not authorized!"), @ApiResponse(code = 403, message = "Forbidden!"),
 			@ApiResponse(code = 404, message = "Not found!") })
 	public ResponseEntity<String> delete(@ApiParam(required = true,example = "1",type = "Long",name = "productId") Long productId);
 	
-	@ApiOperation(value = "Get product categories by productid", response = Iterable.class)
+	@ApiOperation(value = "Get All Categories For A Product By Productid", response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Suceess",response = Category.class, responseContainer = "List"), @ApiResponse(code = 401, message = "Not authorized!"), @ApiResponse(code = 403, message = "Forbidden!"),
 			@ApiResponse(code = 404, message = "Not found!") })
 	public ResponseEntity<List<Category>> productCategory(@ApiParam(required = true,example = "1",type = "Long",name = "productId") Long productId);
 	
-	@ApiOperation(value = "Get categories", response = Iterable.class)
+	@ApiOperation(value = "Get All Categories", response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Suceess",response = Category.class, responseContainer = "List"), @ApiResponse(code = 401, message = "Not authorized!"), @ApiResponse(code = 403, message = "Forbidden!"),
 			@ApiResponse(code = 404, message = "Not found!") })
 	public ResponseEntity<List<Category>> categories();
 	
-	@ApiOperation(value = "UnMapped Category to Product", response = String.class)
+	@ApiOperation(value = "UnMapped A Category To A Product", response = String.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Unmapped Suceessfully"), @ApiResponse(code = 401, message = "Not authorized!"), @ApiResponse(code = 403, message = "Forbidden!"),
 			@ApiResponse(code = 404, message = "Not found!") })
 	public ResponseEntity<String> unmapCategory(Long productId,Long categoryId) ;
 	
-	@ApiOperation(value = "Mapped a Category to Product", response = String.class)
+	@ApiOperation(value = "Mapped A Category To A Product", response = String.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Mapped Suceessfully"), @ApiResponse(code = 401, message = "Not authorized!"), @ApiResponse(code = 403, message = "Forbidden!"),
 			@ApiResponse(code = 404, message = "Not found!") })	
 	public ResponseEntity<String> mapCategory(Long productId,Long categoryId) ;
 	
+	@ApiOperation(value = "Get A Category By Id", response = Category.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Suceess"), @ApiResponse(code = 401, message = "Not authorized!"), @ApiResponse(code = 403, message = "Forbidden!"),
+			@ApiResponse(code = 404, message = "Not found!") })
 	public ResponseEntity<Category> category(Long id);
 	
+	@ApiOperation(value = "Delete A Category By Id", response = String.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Deleted Suceessfully"), @ApiResponse(code = 401, message = "Not authorized!"), @ApiResponse(code = 403, message = "Forbidden!"),
+			@ApiResponse(code = 404, message = "Not found!") })
 	public ResponseEntity<String> deleteCategory(Long id);
 	
 }
