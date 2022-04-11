@@ -19,7 +19,7 @@ import com.ecom.types.Roles;
 @Constraint(validatedBy = EnumValidValueValidator.class)
 public @interface ValidRoles {
     Roles[] anyOf();
-    String message() default "must be any of {anyOf}";
+    String message() default "must be any of {ADMIN,USER}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

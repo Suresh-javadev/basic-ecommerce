@@ -11,6 +11,8 @@ import com.ecom.validators.ValidRoles;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import static com.ecom.constants.Constants.*;
+
 @ApiModel(description = "Modal for create user")
 public class CreateUserDto {
 	
@@ -35,7 +37,7 @@ public class CreateUserDto {
 	
 	@ApiModelProperty(required = true,dataType = "String", example = "sk@gmail.com")
 	@NotBlank(message = "{user.email.notblank}")
-	@Email(regexp = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$",message = "{user.email.email}")
+	@Email(regexp = EMIAL_REGEX,message = "{user.email.email}")
 	private String email;
 	
 	@ApiModelProperty(required = true,dataType = "String", example = "sk")

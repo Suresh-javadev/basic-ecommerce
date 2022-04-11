@@ -7,8 +7,10 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(description = "Modal for create product")
 public class CreateProduct {
 
 	@ApiModelProperty(required = true,dataType = "String", example = "TV")
@@ -22,7 +24,7 @@ public class CreateProduct {
 	private String code;
 	
 	@ApiModelProperty(required = true,dataType = "BigDecimal", example = "1000.00")
-	@Digits(integer = 8,fraction = 2)
+	@Digits(integer = 8,fraction = 2, message = "{product.price.digits}")
 	private BigDecimal price;
 	
 	@ApiModelProperty( dataType = "String", example = "Television")

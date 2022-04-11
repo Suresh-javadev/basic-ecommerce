@@ -3,8 +3,10 @@ package com.ecom.dto.category;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(description = "Modal for create category")
 public class CreateCategory {
 	
 	@ApiModelProperty(required = true,dataType = "String", example = "Electronics")
