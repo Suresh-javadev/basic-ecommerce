@@ -23,7 +23,7 @@ import com.ecom.status.OrderStatus;
 @Constraint(validatedBy = OrderStatusValidator.class)
 public @interface ValidOrderStatus {
 
-	OrderStatus[] anyOf();
+	OrderStatus[] anyOf() ;
 
 	String message() default "must be any of {CREATED, PROCESSED, CANCELLED, DELIVERED, REJECTED}";
 

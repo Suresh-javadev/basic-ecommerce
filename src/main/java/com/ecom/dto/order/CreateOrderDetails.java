@@ -4,14 +4,17 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "Modal for orderDetails")
 public class CreateOrderDetails {
 	
+	@ApiModelProperty(required = true,dataType = "Long", example = "1")
 	@NotNull(message = "{orderdetails.productid.notnull}")
 	@Size(min=1,message = "{orderdetails.productid.size}")
 	private Long productId;
 	
+	@ApiModelProperty(required = true,dataType = "Short", example = "2")
 	@NotNull(message = "{orderdetails.count.notnull}")
 	@Size(min=1,max=10,message = "{orderdetails.count.size}")
 	private Short count;

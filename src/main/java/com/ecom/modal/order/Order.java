@@ -47,7 +47,7 @@ public class Order extends ModalTimeStamp{
 	@OneToOne(mappedBy = "order",fetch = FetchType.EAGER)
 	private OrderPayment orderPayment;
 	
-	@OneToMany(mappedBy = "order",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "order")
 	private Collection<OrderDetails> orderDetails=new ArrayList<>();
 
 	public Long getId() {

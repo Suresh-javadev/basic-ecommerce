@@ -1,17 +1,37 @@
-package com.ecom.dto.order;
+package com.ecom.dto.order.response;
 
 import java.math.BigDecimal;
 
 import com.ecom.status.PaymentOption;
 import com.ecom.status.PaymentStatus;
 
-public class CreatePayment {
+public class OrderPaymentResponseDto {
+
+	private Long id;
+
+	private Long orderId;
 
 	private BigDecimal amount;
 
 	private PaymentStatus status;
 
 	private PaymentOption option;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
 
 	public BigDecimal getAmount() {
 		return amount;
@@ -36,5 +56,5 @@ public class CreatePayment {
 	public void setOption(PaymentOption option) {
 		this.option = option;
 	}
-	
+
 }
