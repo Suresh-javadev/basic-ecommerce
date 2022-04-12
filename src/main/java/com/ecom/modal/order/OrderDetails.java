@@ -25,13 +25,18 @@ public class OrderDetails extends ModalTimeStamp{
 	@JoinColumn(name = "product_id", referencedColumnName = "id",nullable = false)
 	private Product product;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "order_id", referencedColumnName = "id",nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Order order;
 	
 	@Column(name="count",nullable = false)
 	private Short count;
 
+	public OrderDetails() {}
+	
+	public OrderDetails(Long id) {
+		this.id=id;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -54,6 +59,14 @@ public class OrderDetails extends ModalTimeStamp{
 
 	public void setCount(Short count) {
 		this.count = count;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 	
 }

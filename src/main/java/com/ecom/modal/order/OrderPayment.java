@@ -40,6 +40,12 @@ public class OrderPayment extends ModalTimeStamp{
 	@Column(name="option",nullable = false)
 	private PaymentOption option;
 
+	public OrderPayment() {}
+	
+	public OrderPayment(Long id) {
+		this.id=id;
+	}
+	
 	public Long getId() {
 		return id;
 	}

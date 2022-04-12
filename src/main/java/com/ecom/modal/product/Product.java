@@ -40,6 +40,12 @@ public class Product extends ModalTimeStamp{
     @JoinTable(name = "tbl_product_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
     private Collection<Category> categories=new ArrayList<>();
 
+    public Product() {}
+    
+    public Product(Long id) {
+    	this.id=id;
+    }
+    
 	public Long getId() {
 		return id;
 	}

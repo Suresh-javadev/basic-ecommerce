@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -47,9 +48,16 @@ public class Order extends ModalTimeStamp{
 	@OneToOne(mappedBy = "order",fetch = FetchType.EAGER)
 	private OrderPayment orderPayment;
 	
-	@OneToMany(mappedBy = "order")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "order_id", referencedColumnName = "id")
 	private Collection<OrderDetails> orderDetails=new ArrayList<>();
 
+	public Order() {}
+	
+	public Order(Long id) {
+		this.id=id;
+	}
+	
 	public Long getId() {
 		return id;
 	}

@@ -1,5 +1,7 @@
 package com.ecom.controller.order;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -63,6 +65,15 @@ public interface OrderApi {
 			})
 	@ApiOperation(value = "Get A Order Status By Order Id")
 	public ResponseEntity<OrderStatusDto> orderStatus(@NotNull Long id);
+	
+	@ApiResponses(
+			value = {
+				@ApiResponse(code = 200,message = "Suceess",response = OrderResponseDto.class)
+				,@ApiResponse(code = 400,message = "Validation Error",response = ErrorDto.class)
+				,@ApiResponse(code = 404,message = "Order Not Found",response = ErrorDto.class)
+			})
+	@ApiOperation(value = "Get All Orders")
+	public ResponseEntity<List<OrderResponseDto>> orders();
 	
 	@ApiResponses(
 			value = {

@@ -51,6 +51,12 @@ public class User extends ModalTimeStamp{
 	@Column(name="enabled", nullable = false, length = 150,columnDefinition = "boolean default true")
 	private boolean enabled=true;
 
+	
+	public User() {}
+	
+	public User(Long id) {
+		this.id= id;
+	}
 	public Long getId() {
 		return id;
 	}

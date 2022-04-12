@@ -22,6 +22,14 @@ import com.ecom.modal.product.Category;
 import com.ecom.modal.product.Product;
 import com.ecom.services.product.ProductService;
 
+/**
+ * Rest End Point For Product Api Related Operations
+ * <p> Provide Product create, fetch, delete, edit end points.
+ * @author suresh
+ * @since 1.0
+ * @version 1.0
+ */
+
 @RestController
 public class ProductController implements ProductApi {
 	

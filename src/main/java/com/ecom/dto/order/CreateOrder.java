@@ -6,7 +6,8 @@ import java.util.Collection;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Range;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,7 +19,7 @@ public class CreateOrder {
 
 	@ApiModelProperty(required = true,dataType = "Long", example = "1")
 	@NotNull(message = "{order.userid.notnull}")
-	@Size(min=1,message = "{order.userid.size}")
+	@Range(min=1, message = "{order.userid.range}")
 	private Long userId;
 	
 	@ApiModelProperty(required = true,dataType = "BigDecimal", example = "1000.25")
