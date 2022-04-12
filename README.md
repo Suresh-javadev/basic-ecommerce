@@ -2,7 +2,7 @@
 
 ## Rest api for basic ecommerce actions
 
-<p>List of Tech features used for this projects are: <p>
+<p>List of Tech features  used for this projects are: <p>
 <hr>
 <ul>
 <li>Spring Boot</li>
