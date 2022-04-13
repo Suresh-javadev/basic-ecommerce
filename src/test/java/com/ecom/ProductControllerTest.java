@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.ecom.dto.category.CreateCategory;
 import com.ecom.dto.product.CreateProduct;
 import com.ecom.exception.ResourceNotFoundException;
+import com.ecom.modal.product.Category;
 import com.ecom.modal.product.Product;
 import com.ecom.services.product.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -112,4 +115,105 @@ public class ProductControllerTest {
 		.isNotFound())
 		.andExpect(content().string(containsString("Product not found")));
 	}
+	
+	@Test
+	void updateProductWithAdminAuthNotFoundTest() throws Exception {
+
+		CreateProduct createDto =new CreateProduct("Product1", "P2", BigDecimal.valueOf(1000.00), "descriptions");
+		
+		when(productService.update(1l, createDto)).thenThrow(new ResourceNotFoundException("Product not found"));
+		
+		this.mockMvc.perform(put("/product/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(jsonmapper.writeValueAsString(createDto))				
+		.with(httpBasic(ADMIN_USERNSME, ADMIN_PASSWORD)))
+		.andDo(print()).andExpect(status()
+		.isNotFound())
+		.andExpect(content().string(containsString("Product not found")));
+	}
+	
+	@Test
+	void updateProductWithAdminAuthTest() throws Exception {
+
+		CreateProduct createDto =new CreateProduct("Product1", "P2", BigDecimal.valueOf(1000.00), "descriptions");
+		
+		Product product =new Product(1l);
+		product.setName("Product1");
+		
+		when(productService.update(1l, createDto)).thenReturn(product);
+		
+		this.mockMvc.perform(put("/product/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(jsonmapper.writeValueAsString(createDto))	
+		.with(httpBasic(ADMIN_USERNSME, ADMIN_PASSWORD)))
+		.andDo(print()).andExpect(status()
+		.isOk())
+		.andExpect(content().string(containsString("Product1")));
+	}
+	
+	/**
+	 * <p> TEST Create Category API: "{@code /product/category}"
+	 * <p> method POST
+	 * <p> Positive test
+	 * @throws Exception
+	 */
+	@Test
+	void createCategoryWithAdminAuthPositiveTest() throws Exception {
+		CreateCategory createDto=new CreateCategory("Cat1", "Test Category");
+		
+		Category cat=new Category();
+			cat.setName("Cat1");
+		
+		when(productService.createCategory(createDto)).thenReturn(cat);
+		
+		this.mockMvc.perform(post("/product/category")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(jsonmapper.writeValueAsString(createDto))					
+		.with(httpBasic(ADMIN_USERNSME, ADMIN_PASSWORD)))
+		.andDo(print()).andExpect(status()
+		.isCreated())
+		.andExpect(content().string(containsString("Cat1")));
+	}
+	
+	/**
+	 * <p> TEST Create Product API: "{@code /product/category}"
+	 * <p> method POST
+	 * <p> Validation test Negative
+	 * @throws Exception
+	 */
+	@Test
+	void createCategoryWithAdminAuthValidationTest() throws Exception {
+		CreateCategory createDto=new CreateCategory("C", "Test Category");
+		
+		Category cat=new Category();
+			cat.setName("Cat1");
+		
+		when(productService.createCategory(createDto)).thenReturn(cat);
+		
+		this.mockMvc.perform(post("/product/category")
+		.contentType(MediaType.APPLICATION_JSON)
+		.content(jsonmapper.writeValueAsString(createDto))			
+		.with(httpBasic(ADMIN_USERNSME, ADMIN_PASSWORD)))
+		.andDo(print()).andExpect(status()
+		.isBadRequest())
+		.andExpect(content().string(containsString("Validation Error")));
+	}
+	
+	@Test
+	void listProductWithAdminAuthValidationTest() throws Exception {
+		Product p1=new Product();
+		p1.setId(1l);
+		
+		Product p2=new Product();
+		p2.setId(2l);
+		when(productService.list()).thenReturn(Arrays.asList(p1,p2));
+		
+		this.mockMvc.perform(get("/products")		
+		.with(httpBasic(ADMIN_USERNSME, ADMIN_PASSWORD)))
+		.andDo(print()).andExpect(status()
+		.isOk())
+		.andExpect(jsonPath("$.length()").value(2));
+	}
+		
+	
 }
