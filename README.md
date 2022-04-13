@@ -82,6 +82,16 @@
 <img src="productcontrollerapi.png" width="100%" height="350px"/>
 <hr>
 
+## Order API
+<hr>
+<img src="orderapicontroller.png" width="100%" height="350px"/>
+<hr>
+
+## DB Diagram
+<hr>
+<img src="dbdiagram.png" width="100%" height="350px"/>
+<hr>
+
 ## Results: Test Cases - JUnit Test - MockMvc
 <hr>
 <img src="usercontrollertest.png" width="600px" height="350px"/>
