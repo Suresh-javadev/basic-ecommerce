@@ -47,7 +47,7 @@ public class OrderControllerTest {
 	 * @throws Exception
 	 */
 	@Test
-	void createProductWithAdminAuthPositiveTest() throws Exception {
+	void createOrderWithAdminAuthPositiveTest() throws Exception {
 		CreateOrder createDto=new CreateOrder();
 		createDto.setAmount(BigDecimal.valueOf(100.00));
 		createDto.setEmail("suresh@gmail.com");
@@ -80,7 +80,7 @@ public class OrderControllerTest {
 	 * @throws Exception
 	 */
 	@Test
-	void createProductWithAdminAuthValidationTest() throws Exception {
+	void createOrderWithAdminAuthValidationTest() throws Exception {
 		CreateOrder createDto=new CreateOrder();
 		createDto.setAmount(BigDecimal.valueOf(100.00));
 		createDto.setEmail("suresh@gmail.com");
