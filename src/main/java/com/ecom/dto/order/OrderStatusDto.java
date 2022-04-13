@@ -8,9 +8,17 @@ import io.swagger.annotations.ApiModelProperty;
 public class OrderStatusDto {
 
 	@ApiModelProperty(required = true,dataType = "Enum",example="PROCESSED")
-	@ValidOrderStatus(anyOf = {OrderStatus.PROCESSED,OrderStatus.PROCESSED, OrderStatus.CANCELLED, OrderStatus.DELIVERED, OrderStatus.REJECTED} )
+	@ValidOrderStatus(anyOf = {OrderStatus.PROCESSED, OrderStatus.CANCELLED, OrderStatus.DELIVERED, OrderStatus.REJECTED} )
 	private OrderStatus orderStatus;
 
+	public OrderStatusDto() {
+		
+	}
+
+	public OrderStatusDto(OrderStatus status) {
+		this.orderStatus =status;
+	}
+	
 	public OrderStatus getOrderStatus() {
 		return orderStatus;
 	}

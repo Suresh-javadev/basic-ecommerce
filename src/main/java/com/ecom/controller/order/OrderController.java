@@ -70,35 +70,35 @@ public class OrderController implements OrderApi{
 	}
 	
 	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	@PostAuthorize("hasRole('ADMIN') or @customMethodSecurity.validOrderIdAccess(authentication, returnObject.getBody())")
+	@PreAuthorize("hasRole('ADMIN') or @customMethodSecurity.validOrderIdAccess(authentication, #id)")
 	@GetMapping("/order/{orderId}/status")
 	public ResponseEntity<OrderStatusDto> orderStatus(@PathVariable("orderId") @NotNull Long id) {
-		return null;
+		OrderStatusDto status = orderService.orderStatus(id);
+		return ResponseEntity.ok(status);
 	}
 	
 	@Override
-	@PreAuthorize("hasRole('ADMIN') or #orderStatus.getOrderStatus().name() == 'CANCELLED' ")
+	@PreAuthorize("hasRole('ADMIN') or (#orderStatus.getOrderStatus().name() == 'CANCELLED' and @customMethodSecurity.validOrderIdAccess(authentication, #id))")
 	@PutMapping("/order/{orderId}/status")
 	public ResponseEntity<OrderStatusDto> orderStatusUpdate(@PathVariable("orderId") @NotNull Long id,@RequestBody @Valid OrderStatusDto orderStatus) {
-		return null;
+		orderService.updateOrderStatus(id,orderStatus);
+		return ResponseEntity.ok(orderStatus);
 	}
 
 	@Override
-	@PreAuthorize("#payment.getStatus().name() == 'PENDING'")
+	@PreAuthorize("@customMethodSecurity.validOrderIdAccess(authentication, #id) and #payment.getStatus().name() == 'PENDING'")
 	@PostMapping("/order/{orderId}/payment")
 	public ResponseEntity<OrderPaymentResponseDto> orderPayment(@PathVariable("orderId") @NotNull Long id,@RequestBody @Valid CreatePayment payment) {
-		
-		return null;
+		OrderPaymentResponseDto paymentDetails = orderService.createPayment(id,payment);
+		return ResponseEntity.ok(paymentDetails);
 	}
 
 	@Override
-	//service level @PostFilter("hasRole('ADMIN') or filterObject.getUserId() == authentication.principal.getId()")
+	//service level @PostFilter("hasRole('ADMIN') or filterObject.getUserId() == authentication.principal.id()")
 	@GetMapping("/orders")
 	public ResponseEntity<List<OrderResponseDto>> orders() {
-
-		
-		return null;
+		List<OrderResponseDto> list = orderService.findAll();	
+		return ResponseEntity.ok(list);
 	}
 
 }

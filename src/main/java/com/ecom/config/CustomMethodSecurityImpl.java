@@ -1,10 +1,12 @@
 package com.ecom.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.ecom.dto.order.response.OrderResponseDto;
+import com.ecom.services.order.OrderService;
 import com.ecom.userdetails.UserAdapter;
 /**
  *  Custom Method Level Security Expressions.
@@ -16,6 +18,9 @@ import com.ecom.userdetails.UserAdapter;
 @Component("customMethodSecurity")
 public class CustomMethodSecurityImpl implements CustomMethodSecurity{
 
+	@Autowired
+	private OrderService orderService;
+	
 	/**
 	 * <p> Used to validate that, user can access own information.
 	 * <p> LoggedIn user and param User id should be same.
@@ -47,6 +52,12 @@ public class CustomMethodSecurityImpl implements CustomMethodSecurity{
 			return false;
 		
 		return adapter.id().equals(orderDto.getUserId());
+	}
+
+	@Override
+	public boolean validOrderIdAccess(Authentication auth, Long orderId) {
+		OrderResponseDto orderDto =orderService.findOrderById(orderId);
+		return validOrderIdAccess(auth,orderDto);
 	}
 
 }

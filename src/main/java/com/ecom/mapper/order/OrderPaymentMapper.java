@@ -2,10 +2,12 @@ package com.ecom.mapper.order;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 
 import com.ecom.dto.order.response.OrderPaymentResponseDto;
+import com.ecom.dto.order.CreatePayment;
 import com.ecom.modal.order.Order;
 import com.ecom.modal.order.OrderPayment;
 
@@ -17,6 +19,8 @@ public interface OrderPaymentMapper {
 	
 	@Mapping(target = "orderId",source = "order",qualifiedByName="orderToOrderId")
 	OrderPaymentResponseDto entityToDto(OrderPayment entity );
+	
+	void update(@MappingTarget OrderPayment entity ,CreatePayment create);
 	
 	@Named("orderIdToOrder")
 	public static Order orderIdToOrder(Long id) {

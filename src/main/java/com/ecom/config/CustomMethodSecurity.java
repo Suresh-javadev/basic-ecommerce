@@ -9,4 +9,6 @@ public interface CustomMethodSecurity {
 	public boolean validUserIdAccess(Authentication auth, Long userId);
 	
 	public boolean validOrderIdAccess(Authentication auth,OrderResponseDto orderDto);
+	
+	public boolean validOrderIdAccess(Authentication auth,Long orderId);
 }
