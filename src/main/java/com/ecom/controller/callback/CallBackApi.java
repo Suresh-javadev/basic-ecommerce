@@ -10,6 +10,14 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+/**
+ * Rest End Point For Callback Api Related Operations
+ * <p> For payment call back from gateway
+ * @author suresh
+ * @since 1.0
+ * @version 1.0
+ */
+
 @Api(value = "CallBack")
 public interface CallBackApi {
 
