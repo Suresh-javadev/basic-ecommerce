@@ -48,7 +48,7 @@ public class OrderController implements OrderApi{
 
 	@Override
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostAuthorize("@customMethodSecurity.validOrderIdAccess(authentication, returnObject)")
+	@PostAuthorize("@customMethodSecurity.validOrderIdAccess(authentication, returnObject.getBody())")
 	@GetMapping("/order/{orderId}")
 	public ResponseEntity<OrderResponseDto> order(@PathVariable("orderId") @NotNull Long id) {
 		return ResponseEntity.ok(orderService.findOrderById(id));

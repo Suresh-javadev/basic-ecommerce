@@ -2,6 +2,7 @@ package com.ecom;
 
 import static org.mockito.Mockito.when;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
@@ -22,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.ecom.dto.order.CreateOrder;
 import com.ecom.dto.order.CreateOrderDetails;
 import com.ecom.dto.order.response.OrderResponseDto;
+import com.ecom.exception.ResourceNotFoundException;
 import com.ecom.services.order.OrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -100,4 +102,34 @@ public class OrderControllerTest {
 		.andExpect(content().string(containsString("Order Details Required!")));
 	}	
 
+	@Test
+	void getOrderWithAdminAuthTest() throws Exception {
+		
+		OrderResponseDto order=new OrderResponseDto();
+		order.setEmail("suresh@gmail.com");
+		order.setUserId(1l);
+		
+		when(orderService.findOrderById(1l)).thenReturn(order);
+		
+		this.mockMvc.perform(get("/order/1")
+		.with(httpBasic(ADMIN_USERNSME, ADMIN_PASSWORD)))
+		.andDo(print()).andExpect(status()
+		.isOk())
+		.andExpect(jsonPath("$.email",is("suresh@gmail.com")));
+	}
+	
+	@Test
+	void getOrderWithAdminAuthNotFoundTest() throws Exception {
+		OrderResponseDto order=new OrderResponseDto();
+		order.setEmail("suresh@gmail.com");
+		
+		when(orderService.findOrderById(1l)).thenThrow(new ResourceNotFoundException("Order not found by orderId"));
+		
+		this.mockMvc.perform(get("/order/1")
+		.with(httpBasic(ADMIN_USERNSME, ADMIN_PASSWORD)))
+		.andDo(print()).andExpect(status()
+		.isNotFound())
+		.andExpect(content().string(containsString("Order not found by orderId")));
+	}	
+	
 }
