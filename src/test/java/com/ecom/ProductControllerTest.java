@@ -39,6 +39,9 @@ public class ProductControllerTest {
 	private final String ADMIN_USERNSME="admin";
 	private final String ADMIN_PASSWORD="admin@123";
 	
+	private final String USER_USERNSME="user";
+	private final String USER_PASSWORD="user@123";
+	
 	@MockBean
 	private ProductService productService;
 	
@@ -215,5 +218,50 @@ public class ProductControllerTest {
 		.andExpect(jsonPath("$.length()").value(2));
 	}
 		
+	@Test
+	void listCategoriesWithAdminAuthValidationTest() throws Exception {
+		Category cat=new Category();
+		cat.setId(1l);
+		when(productService.categories()).thenReturn(Arrays.asList(cat));
+		
+		this.mockMvc.perform(get("/product/categories")		
+		.with(httpBasic(ADMIN_USERNSME, ADMIN_PASSWORD)))
+		.andDo(print()).andExpect(status()
+		.isOk())
+		.andExpect(jsonPath("$.length()").value(1));
+	}
 	
+	@Test
+	void listCategoriesByProductWithAdminAuthValidationTest() throws Exception {
+		Category cat=new Category();
+		cat.setId(1l);
+		
+		when(productService.findProductCategories(1l)).thenReturn(Arrays.asList(cat));
+		
+		this.mockMvc.perform(get("/product/1/categories")		
+		.with(httpBasic(ADMIN_USERNSME, ADMIN_PASSWORD)))
+		.andDo(print()).andExpect(status()
+		.isOk())
+		.andExpect(jsonPath("$.length()").value(1));
+	}	
+	
+	@Test
+	void deleteProductWithAdminAuthPositiveTest() throws Exception {
+		
+		this.mockMvc.perform(delete("/product/1")
+		.with(httpBasic(ADMIN_USERNSME, ADMIN_PASSWORD)))
+		.andDo(print()).andExpect(status()
+		.isOk())
+		.andExpect(content().string(containsString("Deleted Successfully")));
+	}	
+	
+	@Test
+	void deleteProductWithUserAuthNegetiveTest() throws Exception {
+		
+		this.mockMvc.perform(delete("/product/1")
+		.with(httpBasic(USER_USERNSME, USER_PASSWORD)))
+		.andDo(print()).andExpect(status()
+		.isForbidden())
+		.andExpect(content().string(containsString("No Access")));
+	}	
 }
